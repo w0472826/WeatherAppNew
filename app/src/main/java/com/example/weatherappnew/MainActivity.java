@@ -3,6 +3,11 @@ package com.example.weatherappnew;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+import com.example.weatherappnew.models.Weather;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -15,6 +20,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String json = getJsonFromFile();
+        //Log.i("TESTING", json);
+
+        // Use GSON to parse the json string
+        Gson gson = new Gson();
+        Weather weather = gson.fromJson(json, Weather.class);
+
+        // Display the temperature
+        TextView textViewTemperature = findViewById(R.id.textViewTemperature);
+        String temperature = String.valueOf(weather.getCurrent().getTemperature()) + "°C";
+        textViewTemperature.setText(temperature);
+
+        //Display the condition description
+        TextView textViewDescription = findViewById(R.id.textViewDescription);
+        textViewDescription.setText(weather.getCurrent().getCondition().getText());
     }
 
     // Get JSON string from .json file
