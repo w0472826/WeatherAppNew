@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,29 +41,42 @@ public class MainActivity extends AppCompatActivity {
         Weather weather = gson.fromJson(json, Weather.class);
 
         // Display the temperature
-        TextView textViewTemperature = findViewById(R.id.textViewTemperature);
+        TextView textViewTemperature = binding.textViewTemperature;
         String temperature = String.valueOf(weather.getCurrent().getTemperature()) + "°C";
         textViewTemperature.setText(temperature);
 
         // Display the feel like
-        TextView textViewFeel = findViewById(R.id.textViewFeel);
+        TextView textViewFeel = binding.textViewFeel;
         String feel = "Feels like: " + String.valueOf(weather.getCurrent().getFeel()) + "°C";
         textViewFeel.setText(feel);
 
         // Display the wind kph
-        TextView textViewWind = findViewById(R.id.textViewWind);
+        TextView textViewWind = binding.textViewWind;
         String wind = "Wind: NW " + String.valueOf(weather.getCurrent().getWind()) + " kph";
         textViewWind.setText(wind);
 
         //Display the condition description
-        TextView textViewDescription = findViewById(R.id.textViewDescription);
+        TextView textViewDescription = binding.textViewDescription;
         textViewDescription.setText(weather.getCurrent().getCondition().getText());
 
         //Display the weather icon
-        ImageView imageView = findViewById(R.id.imageViewIcon);
+        ImageView imageView = binding.imageViewIcon;
         String imageUrl = "https:" + weather.getCurrent().getCondition().getIcon();
         imageUrl = imageUrl.replace("64x64","128x128");
         Glide.with(view).load(imageUrl).into(imageView);
+
+        //Display the Location
+
+        //String[] provincesCodes = getResources().getStringArray(R.array.canada);
+        //List<String> listCodes = Arrays.asList(provincesCodes);
+        //int index = listCodes.indexOf(weather.getLocation().getRegion());
+        //String code = listCodes.get(index);
+
+
+        //weather.getLocation().getRegion()
+        TextView textViewLocation = binding.textViewLocation;
+        String fullLocation = weather.getLocation().getName() + ", " + weather.getLocation().getRegion();
+        textViewLocation.setText(fullLocation);
 
     }
 

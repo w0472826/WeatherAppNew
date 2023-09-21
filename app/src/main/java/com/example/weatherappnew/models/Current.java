@@ -15,12 +15,14 @@ public class Current {
     @SerializedName("wind_kph")
     private float wind;
 
+    private String humidity;
 
-    public Current(float temperature, Condition condition, float feel, float wind){
+    public Current(float temperature, String humidity, Condition condition, float feel, float wind){
         this.temperature = temperature;
         this.condition = condition;
         this.feel = feel;
         this.wind = wind;
+        this.humidity = humidity;
     }
 
     public float getTemperature(){ return temperature; }
@@ -30,4 +32,7 @@ public class Current {
     public float getFeel(){ return feel;}
 
     public float getWind(){ return wind;}
+
+    public String getHumidity(){return humidity;}
+
 }
