@@ -26,6 +26,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -39,4 +42,8 @@ dependencies {
 
     // GSON
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
 }
